@@ -93,7 +93,7 @@ endif()
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp Brick.h Brick.cpp Layer.h Layer.cpp Wall.h Wall.cpp Game.cpp Entity.cpp Exception.h Exception.cpp)
 
 ###############################################################################
 
@@ -143,3 +143,4 @@ endif()
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
 # install(FILES some_file1.txt some_file2.md DESTINATION bin)
+install(FILES levels.txt DESTINATION bin)
