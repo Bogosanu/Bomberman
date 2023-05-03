@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 #include "Game.h"
 
     [[nodiscard]] const std::array<std::array<int, 19>, 13> &Game::getM() const {
@@ -87,25 +89,30 @@
                 }
             }
         }
+        //sf::Clock clock;
+        window.setFramerateLimit(15);
+        while (window.isOpen()) {
+            sf::Event evnt;
+            //float currentTime = clock.restart().asSeconds();
+            //float fps = 1.0f/currentTime;
+            //std::cout<<fps<<"\n";
+            window.clear(sf::Color::Black);
+            int n = sp_board.size();
+            for(i = 0; i < n; i++){
+                window.draw(sp_board[i]);
+            }
 
-            while (window.isOpen()) {
-                sf::Event evnt;
-                window.clear(sf::Color::Black);
-                int n = sp_board.size();
-                 for(i = 0; i < n; i++){
-                     window.draw(sp_board[i]);
-                 }
 
-
-                while (window.pollEvent(evnt)) {
-                    switch (evnt.type) {
-                        case sf::Event::Closed:
-                            window.close();
-                            break;
-                    }
-                    window.display();
+            while (window.pollEvent(evnt)) {
+                switch (evnt.type) {
+                    case sf::Event::Closed:
+                        window.close();
+                        break;
                 }
             }
+                window.display();
+
+        }
 
 
 
