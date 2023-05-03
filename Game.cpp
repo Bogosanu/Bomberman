@@ -108,6 +108,8 @@
                     case sf::Event::Closed:
                         window.close();
                         break;
+                    default:
+                        continue;
                 }
             }
                 window.display();
