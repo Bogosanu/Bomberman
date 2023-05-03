@@ -57,7 +57,7 @@
             std::cout << "\n";
         }
 */
-        sf::RenderWindow window(sf::VideoMode(650, 950), "BOMBERMAN", sf::Style::Close | sf::Style::Titlebar);
+        sf::RenderWindow window(sf::VideoMode(950, 650), "BOMBERMAN", sf::Style::Close | sf::Style::Titlebar);
         std::vector<sf::Sprite> sp_board;
         std::vector<sf::Texture> tx_board;
         sf::Sprite curr_brick;
@@ -71,7 +71,7 @@
                 if (br >= 2){
                     curr_brick.setTexture(hardbrick);
                     curr_brick.setScale(0.5f, 0.5f);
-                    curr_brick.setPosition(float(i), float(j));
+                    curr_brick.setPosition(float(j), float(i));
                     sp_board.push_back(curr_brick);
                     tx_board.push_back(hardbrick);
                     //window.draw(curr_brick);
@@ -79,7 +79,7 @@
                 else if (br == 1){
                     curr_brick.setTexture(softbrick);
                     curr_brick.setScale(0.5f, 0.5f);
-                    curr_brick.setPosition(float(i), float(j));
+                    curr_brick.setPosition(float(j), float(i));
                     sp_board.push_back(curr_brick);
                     tx_board.push_back(softbrick);
                     //window.draw(curr_brick);
