@@ -39,9 +39,9 @@
         }
         this->drawlevel();
     }
-    void Game::drawlevel(){
-        int i, j, br;
-        /*for(i = 0; i <= 12; i++) {
+    void Game::drawlevel() {
+       int i, j, br;
+      /*  for(i = 0; i <= 12; i++) {
             for (j = 0; j <= 18; j++) {
                 br = this->getM()[i][j];
                 if (br >= 2)
@@ -55,46 +55,57 @@
                 else std::cout << " ";
             }
             std::cout << "\n";
-        }*/
-
-        sf::RenderWindow window(sf::VideoMode(1024,1024), "BOMBERMAN", sf::Style:: Close | sf::Style:: Titlebar);
-        std::vector <sf::RectangleShape> board(sf::Vector2f);
+        }
+*/
+        sf::RenderWindow window(sf::VideoMode(650, 950), "BOMBERMAN", sf::Style::Close | sf::Style::Titlebar);
+        std::vector<sf::Sprite> sp_board;
+        std::vector<sf::Texture> tx_board;
+        sf::Sprite curr_brick;
         sf::Texture hardbrick;
-        hardbrick.loadFromFile("Textures/hardblock.png");
+        hardbrick.loadFromFile("Textures/hardblock2.png");
         sf::Texture softbrick;
-        softbrick.loadFromFile("Textures/softblock.png");
-        for(i = 0; i <= 12*50; i+=50) {
-            for (j = 0; j <= 18*50; j+=50) {
-                br = this->getM()[i][j];
+        softbrick.loadFromFile("Textures/softblock2.png");
+        for (i = 0; i <= 12 * 50; i += 50) {
+            for (j = 0; j <= 18 * 50; j += 50) {
+                br = this->getM()[i/50][j/50];
                 if (br >= 2){
-                    sf::RectangleShape curr_brick(sf::Vector2f(50.0f,50.0f));
-                    curr_brick.setPosition(float(i),float(j));
-                    curr_brick.setTexture(&hardbrick);
-                   // board.push_back(curr_brick);
-                    window.draw(curr_brick);
+                    curr_brick.setTexture(hardbrick);
+                    curr_brick.setScale(0.5f, 0.5f);
+                    curr_brick.setPosition(float(i), float(j));
+                    sp_board.push_back(curr_brick);
+                    tx_board.push_back(hardbrick);
+                    //window.draw(curr_brick);
                 }
                 else if (br == 1){
-                    sf::RectangleShape curr_brick(sf::Vector2f(50.0f,50.0f));
-                    curr_brick.setPosition(float(i),float(j));
-                    curr_brick.setTexture(&softbrick);
-                    //board.push_back(curr_brick);
-                    window.draw(curr_brick);
+                    curr_brick.setTexture(softbrick);
+                    curr_brick.setScale(0.5f, 0.5f);
+                    curr_brick.setPosition(float(i), float(j));
+                    sp_board.push_back(curr_brick);
+                    tx_board.push_back(softbrick);
+                    //window.draw(curr_brick);
+
                 }
             }
         }
 
-        while(window.isOpen()){
-            sf::Event evnt;
+            while (window.isOpen()) {
+                sf::Event evnt;
+                window.clear(sf::Color::Black);
+                int n = sp_board.size();
+                 for(i = 0; i < n; i++){
+                     window.draw(sp_board[i]);
+                 }
 
-            while(window.pollEvent(evnt)){
-                switch(evnt.type){
-                    case sf::Event::Closed:
-                        window.close();
-                        break;
+
+                while (window.pollEvent(evnt)) {
+                    switch (evnt.type) {
+                        case sf::Event::Closed:
+                            window.close();
+                            break;
+                    }
+                    window.display();
                 }
             }
-            window.display();
-        }
 
 
 
