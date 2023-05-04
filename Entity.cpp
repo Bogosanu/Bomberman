@@ -1,11 +1,17 @@
-#include "Exception.h"
 #include "Entity.h"
-#include "Game.h"
 
+//Clasa Abstracta
 
 Entity::Entity() {};
 
+
 Entity::Entity(int x_, int y_) : x{x_}, y{y_} {}
+
+
+Entity *Entity::clone() const {
+    return nullptr;
+}
+
 
 int Entity::getX() const {
     return x;
@@ -23,12 +29,19 @@ void Entity::setY(int y) {
     Entity::y = y;
 }
 
-void Entity::setpos(int x1, int y1){
-    try {
-        if (y1 >= 1 && y1 <= 17 && x1 >= 1 && x1 <= 12) { this->setX(x1); this->setY(y1); }
-        else throw Outofbounds();
-    }
-    catch (const Exception& e) {
-        std::cout<<"Error: "<<e.what();
-    }
+
+void Entity::set_sprite(sf::Sprite sprite) {
+    sprite.setPosition(y*50,x*50);
+    sprite.setScale(0.5f, 0.5f);
 }
+
+
+
+bool Entity::can_be_placed(int x, int y, std::array<std::array<int,19>,13> m) {
+    if(x >= 1 && x <= 17 && y >= 1 && y <= 11)
+        return true;
+    else return false;
+
+}
+
+Entity::~Entity() {}
