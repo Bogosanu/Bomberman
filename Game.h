@@ -10,6 +10,7 @@
 #include "Wall.h"
 #include "Player.h"
 #include "Objective.h"
+#include "Exception.h"
 #include <fstream>
 #include <array>
 #include <iostream>

@@ -23,4 +23,9 @@ public:
     Outofbounds() : Exception("Out of bounds position. \n") {}
 };
 
+class Unreachable : public Exception {
+public:
+    Unreachable() : Exception("Can't go there.\n") {}
+};
+
 #endif //OOP_EXCEPTION_H

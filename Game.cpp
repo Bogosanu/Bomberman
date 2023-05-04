@@ -21,7 +21,7 @@ const Player &Game::getPlayer() const {
 
 void Game::generatelevel(){
         std::ifstream fin("level.txt");
-        int i, x, y, hp, n;
+        int i, x, y, hp, n, vsize = 0;
         fin >> x >> y;
         if(player.can_be_placed(x,y,m))
             player.setpos(x,y);
@@ -30,6 +30,10 @@ void Game::generatelevel(){
             fin >> x >> y;
             this->getMbr().getWallmatrix()[x].getRow()[y].setdetails(x,y,2);
             m[x][y] = this->getMbr().getWallmatrix()[x].getRow()[y].gethp();
+            obj.emplace_back(std::make_shared<Objective>());
+            obj[vsize]->setX(x);
+            obj[vsize]->setY(y);
+            vsize++;
         }
         while(fin >> x >> y >> hp){
             this->getMbr().getWallmatrix()[x].getRow()[y].setdetails(x,y,hp);
@@ -102,30 +106,66 @@ void Game::generatelevel(){
                 }
 
             }
+
+            ///MOVEMENT
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
                 sf::Vector2f pos = player1.getPosition();
-                if(m[pos.y/50+1][pos.x/50] == 0)
-                pos.y+=50;
-                player1.setPosition(pos);
+                try {
+                    if (m[pos.y / 50 + 1][pos.x / 50] == 0) {
+                        pos.y += 50;
+                        player.setpos(pos.y / 50, pos.x / 50);
+                        player1.setPosition(pos);
+                    }
+                    else throw Unreachable();
+                }
+                catch (const Exception& e) {
+                    std::cout<<"Error: "<<e.what();
+                }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
                 sf::Vector2f pos = player1.getPosition();
-                if(m[pos.y/50-1][pos.x/50] == 0)
-                pos.y-=50;
-                player1.setPosition(pos);
+                try {
+                    if (m[pos.y / 50 - 1][pos.x / 50] == 0) {
+                        pos.y -= 50;
+                        player.setpos(pos.y / 50, pos.x / 50);
+                        player1.setPosition(pos);
+                    }
+                    else throw Unreachable();
+                }
+                catch (const Exception& e) {
+                    std::cout<<"Error: "<<e.what();
+                }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
                 sf::Vector2f pos = player1.getPosition();
-                if(m[pos.y/50][pos.x/50-1] == 0)
-                pos.x-=50;
-                player1.setPosition(pos);
+                try {
+                    if (m[pos.y / 50][pos.x / 50 - 1] == 0) {
+                        pos.x -= 50;
+                        player.setpos(pos.y / 50, pos.x / 50);
+                        player1.setPosition(pos);
+                    }
+                    else throw Unreachable();
+                }
+                catch (const Exception& e) {
+                    std::cout<<"Error: "<<e.what();
+                }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
                 sf::Vector2f pos = player1.getPosition();
-                if(m[pos.y/50][pos.x/50+1] == 0)
-                pos.x+=50;
-                player1.setPosition(pos);
+                try {
+                    if (m[pos.y / 50][pos.x / 50 + 1] == 0) {
+                        pos.x += 50;
+                        player.setpos(pos.y / 50, pos.x / 50);
+                        player1.setPosition(pos);
+                    }
+                    else throw Unreachable();
+                }
+                catch (const Exception& e) {
+                    std::cout<<"Error: "<<e.what();
+                }
             }
+            //////////
+
 
             window.draw(player1);
             int n = sp_board.size();

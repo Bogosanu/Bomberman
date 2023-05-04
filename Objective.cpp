@@ -23,9 +23,10 @@ Objective *Objective::clone() const {
     return new Objective(*this);
 }
 
-Objective::Objective(const Objective & other ) : acquired{other.acquired}, sprite{other.sprite} {}
+Objective::Objective(const Objective & other ) : Entity{other}, acquired{other.acquired}, sprite{other.sprite} {}
 
 Objective &Objective::operator=(const Objective & other) {
+    Entity::operator=(other);
     acquired = other.acquired;
     sprite = other.sprite;
     return *this;

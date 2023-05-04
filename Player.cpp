@@ -23,9 +23,10 @@ Player *Player::clone() const {
     return new Player(*this);
 }
 
-Player::Player(const Player & other ) : alive{other.alive}, sprite{other.sprite} {}
+Player::Player(const Player & other ) : Entity{other}, alive{other.alive}, sprite{other.sprite} {}
 
 Player &Player::operator=(const Player & other) {
+    Entity::operator=(other);
     alive = other.alive;
     sprite = other.sprite;
     return *this;
@@ -37,7 +38,7 @@ bool Player::can_be_placed(int x, int y, std::array<std::array<int,19>,13> m) {
     return false;
 }
 
-void Player::setpos(int x1, int y1){
+void Player::setpos(int x1, int y1){ //exceptia e pentru inceput, cand sunt introduse coordonatele jucatorului din level.txt
     try {
         if (y1 >= 1 && y1 <= 17 && x1 >= 1 && x1 <= 11) { this->setX(x1); this->setY(y1); }
         else throw Outofbounds();

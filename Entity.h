@@ -13,7 +13,11 @@ public:
 
     virtual Entity * clone() const = 0;
 
+    Entity& operator=(const Entity& other);
+
     Entity(int x_, int y_);
+
+    Entity(const Entity& other);
 
     int getX() const;
 

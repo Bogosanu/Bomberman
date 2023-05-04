@@ -7,11 +7,19 @@ Entity::Entity() {};
 
 Entity::Entity(int x_, int y_) : x{x_}, y{y_} {}
 
+Entity::Entity(const Entity & other ) : x{other.x}, y{other.y} {}
 
 Entity *Entity::clone() const {
     return nullptr;
 }
 
+
+Entity &Entity::operator=(const Entity & other) {
+    Entity::operator=(other);
+    x = other.x;
+    y = other.y;
+    return *this;
+}
 
 int Entity::getX() const {
     return x;
