@@ -79,7 +79,7 @@ void Game::generatelevel(){
             }
 
             sp_board.clear();
-            window.clear(sf::Color::Black);
+            window.clear(sf::Color(74, 93, 35));
 
             for (i = 0; i <= 12 * 50; i += 50) {
                 for (j = 0; j <= 18 * 50; j += 50) {
