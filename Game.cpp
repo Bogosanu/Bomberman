@@ -45,10 +45,11 @@ void Game::generatelevel(){
         this->drawlevel();
     }
     void Game::drawlevel() {
-       int i, j, br;
+       int i, j, br, timer = 0;
         sf::RenderWindow window(sf::VideoMode(950, 650), "BOMBERMAN", sf::Style::Close | sf::Style::Titlebar);
         std::vector<sf::Sprite> sp_board;
         sf::Sprite player1;
+        sf::Sprite bomb;
         sf::Sprite curr_brick;
         sf::Texture hardbrick;
         hardbrick.loadFromFile("Textures/hardblock2.png");
@@ -60,6 +61,8 @@ void Game::generatelevel(){
         objective_hurt.loadFromFile("Textures/objective_hurt.png");
         sf::Texture player_text;
         player_text.loadFromFile("Textures/player.png");
+        sf::Texture bomb_text;
+        bomb_text.loadFromFile("Textures/bomb.png");
         player1.setTexture(player_text);
         player1.setScale(0.5f, 0.5f);
         player1.setPosition(player.getY()*50, player.getX()*50);
@@ -165,6 +168,33 @@ void Game::generatelevel(){
                 }
             }
             //////////
+            /////////BOMB
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && timer == 0){
+                sf::Vector2f pos = player1.getPosition();
+                bomb.setTexture(bomb_text);
+                bomb.setScale(0.5f, 0.5f);
+                bomb.setPosition(pos);
+                timer = 22;  // 7 fps * 3 secunde = 21 frame-uri si mergem pana la 1 deci incepem la 22
+            }
+            if(timer > 1){
+                timer--;
+                window.draw(bomb);
+            }
+            if(timer == 1){
+                sf::Vector2f pos = bomb.getPosition();
+                /*this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50].damagebrick();
+                this->getMbr().getWallmatrix()[pos.y/50+1].getRow()[pos.x/50].damagebrick();
+                this->getMbr().getWallmatrix()[pos.y/50-1].getRow()[pos.x/50].damagebrick();
+                this->getMbr().getWallmatrix()[pos.y].getRow()[pos.x/50+1].damagebrick();
+                this->getMbr().getWallmatrix()[pos.y].getRow()[pos.x/50].damagebrick();*/
+
+
+                while(timer > -13){
+                    timer--;
+
+                }
+                timer = 0;
+            }
 
 
             window.draw(player1);
