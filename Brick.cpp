@@ -60,7 +60,7 @@
     }
 
     void Brick::damagebrick(){
-        if(this->hp == 1 || this->hp == 2) // caramizile cu 1 hp sunt destructibile
+        if(this->hp != 0 && this->hp < 9) // caramizile cu 1 hp sunt destructibile
             this->setHp(this->hp-1);  // caramizile cu 2 hp sunt obiective
         if(this->hp == 0)
             this->setAlive(false);

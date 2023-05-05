@@ -51,6 +51,21 @@ void Game::generatelevel(){
         sf::Sprite player1;
         sf::Sprite bomb;
         sf::Sprite curr_brick;
+        sf::Sprite explosion_center;
+        sf::Sprite explosion_top;
+        sf::Sprite explosion_bottom;
+        sf::Sprite explosion_left;
+        sf::Sprite explosion_right;
+        sf::Texture explosion_c;
+        explosion_c.loadFromFile("Textures/explosion_center.png");
+        sf::Texture explosion_t;
+        explosion_t.loadFromFile("Textures/explosion_top.png");
+        sf::Texture explosion_b;
+        explosion_b.loadFromFile("Textures/explosion_bottom.png");
+        sf::Texture explosion_l;
+        explosion_l.loadFromFile("Textures/explosion_left.png");
+        sf::Texture explosion_r;
+        explosion_r.loadFromFile("Textures/explosion_right.png");
         sf::Texture hardbrick;
         hardbrick.loadFromFile("Textures/hardblock2.png");
         sf::Texture softbrick;
@@ -105,6 +120,11 @@ void Game::generatelevel(){
                         curr_brick.setPosition(float(j), float(i));
                         sp_board.push_back(curr_brick);
                     }
+
+
+
+
+
 
                 }
 
@@ -182,11 +202,28 @@ void Game::generatelevel(){
             }
             if(timer == 1){
                 sf::Vector2f pos = bomb.getPosition();
-                /*this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50].damagebrick();
+                this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50].damagebrick();
                 this->getMbr().getWallmatrix()[pos.y/50+1].getRow()[pos.x/50].damagebrick();
                 this->getMbr().getWallmatrix()[pos.y/50-1].getRow()[pos.x/50].damagebrick();
-                this->getMbr().getWallmatrix()[pos.y].getRow()[pos.x/50+1].damagebrick();
-                this->getMbr().getWallmatrix()[pos.y].getRow()[pos.x/50].damagebrick();*/
+                this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50+1].damagebrick();
+                this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50].damagebrick();
+                if(m[pos.y/50][pos.x/50] < 9 && m[pos.y/50][pos.x/50] > 0) {
+                    m[pos.y / 50][pos.x / 50]--;
+
+                }
+                if(m[pos.y/50+1][pos.x/50] < 9 && m[pos.y/50+1][pos.x/50] > 0 ) {
+                    m[pos.y / 50 + 1][pos.x / 50]--;
+                }
+                if(m[pos.y/50-1][pos.x/50] < 9 && m[pos.y/50-1][pos.x/50] > 0) {
+                    m[pos.y / 50 - 1][pos.x / 50]--;
+                }
+                if(m[pos.y/50][pos.x/50+1] < 9 && m[pos.y/50][pos.x/50+1] > 0) {
+                    m[pos.y / 50][pos.x / 50 + 1]--;
+                }
+                if(m[pos.y/50][pos.x/50-1] < 9 && m[pos.y/50][pos.x/50-1] > 0) {
+                    m[pos.y / 50][pos.x / 50 - 1]--;
+                }
+                //std::cout<<pos.x<<" "<<pos.y<<"\n";
 
 
                 while(timer > -13){
