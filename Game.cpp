@@ -46,6 +46,7 @@ void Game::generatelevel(){
     }
     void Game::drawlevel() {
        int i, j, br, timer = 0;
+       int okc = 0, okt = 0, okb = 0, okl = 0, okr = 0;
         sf::RenderWindow window(sf::VideoMode(950, 650), "BOMBERMAN", sf::Style::Close | sf::Style::Titlebar);
         std::vector<sf::Sprite> sp_board;
         sf::Sprite player1;
@@ -194,13 +195,13 @@ void Game::generatelevel(){
                 bomb.setTexture(bomb_text);
                 bomb.setScale(0.5f, 0.5f);
                 bomb.setPosition(pos);
-                timer = 22;  // 7 fps * 3 secunde = 21 frame-uri si mergem pana la 1 deci incepem la 22
+                timer = 20;
             }
-            if(timer > 1){
+            if(timer > 5){
                 timer--;
                 window.draw(bomb);
             }
-            if(timer == 1){
+            if(timer == 5){
                 sf::Vector2f pos = bomb.getPosition();
                 this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50].damagebrick();
                 this->getMbr().getWallmatrix()[pos.y/50+1].getRow()[pos.x/50].damagebrick();
@@ -209,31 +210,81 @@ void Game::generatelevel(){
                 this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50].damagebrick();
                 if(m[pos.y/50][pos.x/50] < 9 && m[pos.y/50][pos.x/50] > 0) {
                     m[pos.y / 50][pos.x / 50]--;
-
                 }
+                if(m[pos.y / 50][pos.x / 50] == 0){
+                    okc = 1;
+                    explosion_center.setTexture(explosion_c);
+                    explosion_center.setScale(3.5f, 3.5f);
+                    explosion_center.setPosition(pos);
+                }
+
+
                 if(m[pos.y/50+1][pos.x/50] < 9 && m[pos.y/50+1][pos.x/50] > 0 ) {
                     m[pos.y / 50 + 1][pos.x / 50]--;
                 }
+                if(m[pos.y / 50 + 1][pos.x / 50] == 0) {
+                    okb = 1;
+                    explosion_bottom.setTexture(explosion_b);
+                    explosion_bottom.setScale(3.5f, 3.5f);
+                    explosion_bottom.setPosition(pos.x, pos.y + 50);
+                }
+
+
                 if(m[pos.y/50-1][pos.x/50] < 9 && m[pos.y/50-1][pos.x/50] > 0) {
                     m[pos.y / 50 - 1][pos.x / 50]--;
                 }
+                if(m[pos.y / 50 - 1][pos.x / 50] == 0) {
+                    okt = 1;
+                    explosion_top.setTexture(explosion_t);
+                    explosion_top.setScale(3.5f, 3.5f);
+                    explosion_top.setPosition(pos.x, pos.y - 50);
+                }
+
+
                 if(m[pos.y/50][pos.x/50+1] < 9 && m[pos.y/50][pos.x/50+1] > 0) {
                     m[pos.y / 50][pos.x / 50 + 1]--;
                 }
+                if(m[pos.y / 50][pos.x / 50 + 1] == 0){
+                    okr = 1;
+                    explosion_right.setTexture(explosion_r);
+                    explosion_right.setScale(3.5f, 3.5f);
+                    explosion_right.setPosition(pos.x + 50, pos.y);
+                    }
+
                 if(m[pos.y/50][pos.x/50-1] < 9 && m[pos.y/50][pos.x/50-1] > 0) {
                     m[pos.y / 50][pos.x / 50 - 1]--;
                 }
-                //std::cout<<pos.x<<" "<<pos.y<<"\n";
-
-
-                while(timer > -13){
-                    timer--;
-
+                if(m[pos.y / 50][pos.x / 50 - 1] == 0) {
+                    okl = 1;
+                    explosion_left.setTexture(explosion_l);
+                    explosion_left.setScale(3.5f, 3.5f);
+                    explosion_left.setPosition(pos.x - 50, pos.y);
                 }
-                timer = 0;
+                //std::cout<<pos.x<<" "<<pos.y<<"\n";
+                //std::cout<<okl;
+                timer--;
+
             }
-
-
+            if(timer < 5 && timer > 0){
+                if(okc)
+                    window.draw(explosion_center);
+                if(okb)
+                    window.draw(explosion_bottom);
+                if(okt)
+                    window.draw(explosion_top);
+                if(okl)
+                    window.draw(explosion_left);
+                if(okr)
+                    window.draw(explosion_right);
+               timer--;
+            }
+            if(timer == 0){
+                okc = 0;
+                okb = 0;
+                okt = 0;
+                okl = 0;
+                okr = 0;
+            }
             window.draw(player1);
             int n = sp_board.size();
             for(i = 0; i < n; i++)
