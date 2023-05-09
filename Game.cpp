@@ -196,6 +196,8 @@ void Game::generatelevel(){
                 bomb.setScale(0.5f, 0.5f);
                 bomb.setPosition(pos);
                 timer = 20;
+                m[pos.y / 50][pos.x / 50] = 3; // linia asta e aici ca playerul sa nu poata trece prin bomba (se reseteaza la 0 dupa detonare)
+
             }
             if(timer > 5){
                 timer--;
@@ -209,7 +211,7 @@ void Game::generatelevel(){
                 this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50+1].damagebrick();
                 this->getMbr().getWallmatrix()[pos.y/50].getRow()[pos.x/50].damagebrick();
                 if(m[pos.y/50][pos.x/50] < 9 && m[pos.y/50][pos.x/50] > 0) {
-                    m[pos.y / 50][pos.x / 50]--;
+                    m[pos.y / 50][pos.x / 50] = 0;
                 }
                 if(m[pos.y / 50][pos.x / 50] == 0){
                     okc = 1;
