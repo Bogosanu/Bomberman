@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <windows.h>
 
     [[nodiscard]] const std::array<std::array<int, 19>, 13> &Game::getM() const {
         return m;
@@ -278,6 +279,17 @@ void Game::generatelevel(){
                     window.draw(explosion_left);
                 if(okr)
                     window.draw(explosion_right);
+                sf::Vector2f playerpos = player1.getPosition();
+                sf::Vector2f bombpos = bomb.getPosition();
+                if((abs(playerpos.x - bombpos.x) == 50  && abs(playerpos.y - bombpos.y) != 50 ) || (abs(playerpos.y - bombpos.y) == 50  && abs(playerpos.x - bombpos.x) != 50) || playerpos == bombpos) {
+                    int n = sp_board.size();
+                    for(i = 0; i < n; i++)
+                        window.draw(sp_board[i]); // stilizare game over
+                    window.display();
+                    std::cout << "GAME OVER\n";
+                    Sleep(3000);
+                    window.close();
+                }
                timer--;
             }
             if(timer == 0){
