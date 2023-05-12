@@ -17,7 +17,7 @@ public:
 
     Objective& operator=(const Objective& other);
 
-    bool can_be_placed(int, int, std::array<std::array<int,19>,13>);
+    bool can_be_placed(int, int, std::array<std::array<int,19>,13>) override;
 
     ~Objective();
 

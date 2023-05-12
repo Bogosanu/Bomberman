@@ -23,7 +23,7 @@ Player *Player::clone() const {
     return new Player(*this);
 }
 
-Player::Player(const Player & other ) : Entity{other}, alive{other.alive}, sprite{other.sprite} {}
+Player::Player(const Player & other ) : Entity{other}, sprite{other.sprite}, alive{other.alive} {}
 
 Player &Player::operator=(const Player & other) {
     Entity::operator=(other);
