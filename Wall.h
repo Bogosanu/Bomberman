@@ -11,7 +11,7 @@ private:
 
 public:
     Wall();
-    Wall(std::array<Layer, 13> &wallmatrix);
+    explicit Wall(std::array<Layer, 13> &wallmatrix);
     std::array<Layer, 13> &getWallmatrix();
 };
 
