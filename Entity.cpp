@@ -28,18 +28,18 @@ int Entity::getY() const {
     return y;
 }
 
-void Entity::setX(int x) {
-    Entity::x = x;
+void Entity::setX(int x1) {
+    Entity::x = x1;
 }
 
-void Entity::setY(int y) {
-    Entity::y = y;
+void Entity::setY(int y1) {
+    Entity::y = y1;
 }
 
 
-void Entity::set_sprite(sf::Sprite sprite) {
-    sprite.setPosition(y*50,x*50);
+void Entity:: configure_sprite(sf::Sprite sprite) {
     sprite.setScale(0.5f, 0.5f);
+    sprite.setPosition(y*50,x*50);
 }
 
 

@@ -12,9 +12,7 @@
         return mbr;
     }
 
-const Player &Game::getPlayer() const {
-    return player;
-}
+
 
 
 
@@ -22,10 +20,16 @@ const Player &Game::getPlayer() const {
 
 void Game::generatelevel(){
         std::ifstream fin("level.txt");
+        sf::Texture objective_text;
+        objective_text.loadFromFile("Textures/objective.png");
+        sf::Sprite objective;
+        objective.setTexture(objective_text);
         int i, x, y, hp, n, vsize = 0;
         fin >> x >> y;
-        if(player.can_be_placed(x,y,m))
-            player.setpos(x,y);
+        if(player.can_be_placed(x,y,m)) {
+            player.setpos(x, y);
+            player.setAlive(true);
+        }
         fin >> n;
         for(i = 0; i < n; ++i){
             fin >> x >> y;
@@ -34,6 +38,8 @@ void Game::generatelevel(){
             obj.emplace_back(std::make_shared<Objective>());
             obj[vsize]->setX(x);
             obj[vsize]->setY(y);
+            obj[vsize]->setAcquired(false);
+            obj[vsize]->setSprite(objective);
             vsize++;
         }
         while(fin >> x >> y >> hp){
@@ -83,10 +89,10 @@ void Game::generatelevel(){
         player1.setTexture(player_text);
         player1.setScale(0.5f, 0.5f);
         player1.setPosition(player.getY()*50, player.getX()*50);
-
-
+        player.configure_sprite(player1);
+        player.setSprite(player1);
         window.setFramerateLimit(7);
-        while (window.isOpen()) {
+        while (window.isOpen() && player.isAlive()) {
             sf::Event evnt;
             while (window.pollEvent(evnt)) {
                 switch (evnt.type) {
@@ -281,12 +287,14 @@ void Game::generatelevel(){
                     window.draw(explosion_right);
                 sf::Vector2f playerpos = player1.getPosition();
                 sf::Vector2f bombpos = bomb.getPosition();
-                if((abs(playerpos.x - bombpos.x) == 50  && abs(playerpos.y - bombpos.y) != 50 ) || (abs(playerpos.y - bombpos.y) == 50  && abs(playerpos.x - bombpos.x) != 50) || playerpos == bombpos) {
+                if((abs(playerpos.x - bombpos.x) == 50  && abs(playerpos.y - bombpos.y) == 0 ) || (abs(playerpos.y - bombpos.y) == 50  && abs(playerpos.x - bombpos.x) == 0) || playerpos == bombpos) {
+                    player.setAlive(false);
                     int n = sp_board.size();
                     for(i = 0; i < n; i++)
                         window.draw(sp_board[i]); // stilizare game over
                     window.display();
                     std::cout << "GAME OVER\n";
+                    //std::cout<<bombpos.x<<" "<<bombpos.y<<" "<<playerpos.x<<" "<<playerpos.y<<"\n";
                     //Sleep(3000);
                     window.close();
                 }

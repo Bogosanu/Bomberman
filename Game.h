@@ -31,7 +31,6 @@ public:
     void drawlevel();
 
 
-    const Player &getPlayer() const;
 
 };
 

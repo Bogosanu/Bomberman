@@ -7,12 +7,13 @@ Player::Player(){
     alive = true;
 }
 
-void Player::setSprite(const sf::Sprite &sprite) {
-    Player::sprite = sprite;
+void Player::setSprite(const sf::Sprite &sprite1) {
+    Player::sprite = sprite1;
 }
 
-void Player::setAlive(bool alive) {
-    Player::alive = alive;
+
+void Player::setAlive(bool alive1) {
+    Player::alive = alive1;
 }
 
 bool Player::isAlive() const {
@@ -32,8 +33,8 @@ Player &Player::operator=(const Player & other) {
     return *this;
 }
 
-bool Player::can_be_placed(int x, int y, std::array<std::array<int,19>,13> m) {
-    if(m[x][y] == 0)
+bool Player::can_be_placed(int x1, int y1, std::array<std::array<int,19>,13> m) {
+    if(m[x1][y1] == 0)
         return true;
     return false;
 }

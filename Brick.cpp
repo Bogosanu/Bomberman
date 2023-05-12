@@ -13,7 +13,7 @@
     Brick::Brick(const Brick& other) : hp{other.hp}, x{other.x}, y{other.y}, alive{other.alive} {}  //constructor de copiere
 
     int Brick::gethp() const { return hp; }
-    int Brick::getx() const { return x; }
+    // int Brick::getx() const { return x; }
     //   int gety() const { return y; }
     //   int isalive() const { return alive; }
 

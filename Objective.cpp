@@ -7,12 +7,12 @@ Objective::Objective(){
     acquired = false;
 }
 
-void Objective::setSprite(const sf::Sprite &sprite) {
-    Objective::sprite = sprite;
+void Objective::setSprite(const sf::Sprite &sprite1) {
+    Objective::sprite = sprite1;
 }
 
-void Objective::setAcquired(bool acquired) {
-    Objective::acquired = acquired;
+void Objective::setAcquired(bool acquired1) {
+    Objective::acquired = acquired1;
 }
 
 bool Objective::isAcquired() const {
@@ -32,8 +32,8 @@ Objective &Objective::operator=(const Objective & other) {
     return *this;
 }
 
-bool Objective::can_be_placed(int x, int y, std::array<std::array<int,19>,13> m) {
-    if(m[x][y] == 1) // obiectivele stau pe caramizi destructibile si trb sa fie distruse pt a castiga
+bool Objective::can_be_placed(int x1, int y1, std::array<std::array<int,19>,13> m) {
+    if(m[x1][y1] == 1) // obiectivele stau pe caramizi destructibile si trb sa fie distruse pt a castiga
         return true;
     return false;
 }

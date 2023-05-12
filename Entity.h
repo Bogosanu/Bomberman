@@ -31,7 +31,7 @@ public:
 
     //void setpos(int, int);
 
-    void set_sprite(sf::Sprite);
+    void configure_sprite(sf::Sprite);
 
     virtual bool can_be_placed(int,int, std::array<std::array<int,19>,13>) = 0;
 
