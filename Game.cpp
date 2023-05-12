@@ -1,5 +1,5 @@
 #include "Game.h"
-#include <windows.h>
+
 
     [[nodiscard]] const std::array<std::array<int, 19>, 13> &Game::getM() const {
         return m;
@@ -287,7 +287,7 @@ void Game::generatelevel(){
                         window.draw(sp_board[i]); // stilizare game over
                     window.display();
                     std::cout << "GAME OVER\n";
-                    Sleep(3000);
+                    //Sleep(3000);
                     window.close();
                 }
                timer--;

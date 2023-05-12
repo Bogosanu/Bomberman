@@ -14,8 +14,7 @@ Entity *Entity::clone() const {
 }
 
 
-Entity &Entity::operator=(const Entity & other) {
-    Entity::operator=(other);
+Entity& Entity::operator=(const Entity & other) {
     x = other.x;
     y = other.y;
     return *this;
