@@ -26,6 +26,7 @@ class Game {
 public:
     [[nodiscard]] const std::array<std::array<int, 19>, 13> &getM() const;
     Game();
+    Game(const Game& other);
     Wall &getMbr();
     void generatelevel();
     void drawlevel();

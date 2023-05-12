@@ -15,9 +15,9 @@ void Objective::setAcquired(bool acquired1) {
     Objective::acquired = acquired1;
 }
 
-bool Objective::isAcquired() const {
+/*bool Objective::isAcquired() const {
     return acquired;
-}
+}*/
 
 Objective *Objective::clone() const {
     return new Objective(*this);

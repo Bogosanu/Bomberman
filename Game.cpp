@@ -7,6 +7,16 @@
 
     Game::Game() = default;
 
+    Game::Game(const Game &other): mbr{other.mbr}, m{other.m}, player{other.player}{
+        obj.clear();
+        for(int i=0; i<other.obj.size(); i++)
+        {
+            Objective * obj_cl = other.obj[i]->clone();
+            obj.emplace_back(obj_cl);
+        }
+
+    }
+
 
     Wall &Game::getMbr()  {
         return mbr;

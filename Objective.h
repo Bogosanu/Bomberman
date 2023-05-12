@@ -25,7 +25,7 @@ public:
 
     void setAcquired(bool acquired);
 
-    bool isAcquired() const;
+    //bool isAcquired() const;
 
 };
 
