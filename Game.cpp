@@ -149,12 +149,12 @@ void Game::generatelevel(){
             }
 
             ///MOVEMENT
-            sf::Vector2f playerpos = player1.getPosition();
+            sf::Vector2f movingpos = player1.getPosition();
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
                 try {
-                    if (m[playerpos.y / 50 + 1][playerpos.x / 50] == 0) {
-                        playerpos.y += 50;
-                        player.setpos(playerpos.y / 50, playerpos.x / 50);
+                    if (m[movingpos.y / 50 + 1][movingpos.x / 50] == 0) {
+                        movingpos.y += 50;
+                        player.setpos(movingpos.y / 50, movingpos.x / 50);
                     }
                     else throw Unreachable();
                 }
@@ -164,9 +164,9 @@ void Game::generatelevel(){
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
                 try {
-                    if (m[playerpos.y / 50 - 1][playerpos.x / 50] == 0) {
-                        playerpos.y -= 50;
-                        player.setpos(playerpos.y / 50, playerpos.x / 50);
+                    if (m[movingpos.y / 50 - 1][movingpos.x / 50] == 0) {
+                        movingpos.y -= 50;
+                        player.setpos(movingpos.y / 50, movingpos.x / 50);
                     }
                     else throw Unreachable();
                 }
@@ -176,9 +176,9 @@ void Game::generatelevel(){
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
                 try {
-                    if (m[playerpos.y / 50][playerpos.x / 50 - 1] == 0) {
-                        playerpos.x -= 50;
-                        player.setpos(playerpos.y / 50, playerpos.x / 50);
+                    if (m[movingpos.y / 50][movingpos.x / 50 - 1] == 0) {
+                        movingpos.x -= 50;
+                        player.setpos(movingpos.y / 50, movingpos.x / 50);
                     }
                     else throw Unreachable();
                 }
@@ -188,9 +188,9 @@ void Game::generatelevel(){
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
                 try {
-                    if (m[playerpos.y / 50][playerpos.x / 50 + 1] == 0) {
-                        playerpos.x += 50;
-                        player.setpos(playerpos.y / 50, playerpos.x / 50);
+                    if (m[movingpos.y / 50][movingpos.x / 50 + 1] == 0) {
+                        movingpos.x += 50;
+                        player.setpos(movingpos.y / 50, movingpos.x / 50);
                     }
                     else throw Unreachable();
                 }
@@ -198,7 +198,7 @@ void Game::generatelevel(){
                     std::cout<<"Error: "<<e.what();
                 }
             }
-            player1.setPosition(playerpos);
+            player1.setPosition(movingpos);
             //////////
             /////////BOMB
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && timer == 0){
