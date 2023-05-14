@@ -8,7 +8,6 @@
     Game::Game() = default;
 
     Game::Game(const Game &other): mbr{other.mbr}, m{other.m}, player{other.player}{
-        obj.clear();
         for(unsigned long i=0; i<other.obj.size(); i++)
         {
             Objective * obj_cl = other.obj[i]->clone();
@@ -23,7 +22,13 @@
     }
 
 
-
+Game& Game::operator=(const Game& other) {
+    mbr = other.mbr;
+    m = other.m;
+    player = other.player;
+    obj = other.obj;
+    return *this;
+}
 
 
 
@@ -122,23 +127,18 @@ void Game::generatelevel(){
                     br = this->getM()[i/50][j/50];
                     if (br == 9){
                         curr_brick.setTexture(hardbrick);
-                        curr_brick.setScale(0.5f, 0.5f);
-                        curr_brick.setPosition(float(j), float(i));
-                        sp_board.push_back(curr_brick);
                     }
                     else if (br == 1) {
                         curr_brick.setTexture(softbrick);
-                        curr_brick.setScale(0.5f, 0.5f);
-                        curr_brick.setPosition(float(j), float(i));
-                        sp_board.push_back(curr_brick);
                     }
                     else if (br == 2){
                         curr_brick.setTexture(objective);
+                    }
+                    if(br == 1 || br == 2 || br == 9){
                         curr_brick.setScale(0.5f, 0.5f);
                         curr_brick.setPosition(float(j), float(i));
                         sp_board.push_back(curr_brick);
                     }
-
 
 
 
@@ -149,13 +149,12 @@ void Game::generatelevel(){
             }
 
             ///MOVEMENT
+            sf::Vector2f pos = player1.getPosition();
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-                sf::Vector2f pos = player1.getPosition();
                 try {
                     if (m[pos.y / 50 + 1][pos.x / 50] == 0) {
                         pos.y += 50;
                         player.setpos(pos.y / 50, pos.x / 50);
-                        player1.setPosition(pos);
                     }
                     else throw Unreachable();
                 }
@@ -164,12 +163,10 @@ void Game::generatelevel(){
                 }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-                sf::Vector2f pos = player1.getPosition();
                 try {
                     if (m[pos.y / 50 - 1][pos.x / 50] == 0) {
                         pos.y -= 50;
                         player.setpos(pos.y / 50, pos.x / 50);
-                        player1.setPosition(pos);
                     }
                     else throw Unreachable();
                 }
@@ -178,12 +175,10 @@ void Game::generatelevel(){
                 }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-                sf::Vector2f pos = player1.getPosition();
                 try {
                     if (m[pos.y / 50][pos.x / 50 - 1] == 0) {
                         pos.x -= 50;
                         player.setpos(pos.y / 50, pos.x / 50);
-                        player1.setPosition(pos);
                     }
                     else throw Unreachable();
                 }
@@ -192,12 +187,10 @@ void Game::generatelevel(){
                 }
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-                sf::Vector2f pos = player1.getPosition();
                 try {
                     if (m[pos.y / 50][pos.x / 50 + 1] == 0) {
                         pos.x += 50;
                         player.setpos(pos.y / 50, pos.x / 50);
-                        player1.setPosition(pos);
                     }
                     else throw Unreachable();
                 }
@@ -205,6 +198,7 @@ void Game::generatelevel(){
                     std::cout<<"Error: "<<e.what();
                 }
             }
+            player1.setPosition(pos);
             //////////
             /////////BOMB
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && timer == 0){
@@ -305,7 +299,8 @@ void Game::generatelevel(){
                     window.display();
                     std::cout << "GAME OVER\n";
                     //std::cout<<bombpos.x<<" "<<bombpos.y<<" "<<playerpos.x<<" "<<playerpos.y<<"\n";
-                    //Sleep(3000);
+                    sf::Time sleeptime = sf::seconds(2);
+                    sf::sleep(sleeptime);
                     window.close();
                 }
                timer--;

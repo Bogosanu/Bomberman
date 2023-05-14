@@ -144,3 +144,7 @@ install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
 # install(FILES some_file1.txt some_file2.md DESTINATION bin)
 install(FILES level.txt DESTINATION bin)
+Install(DIRECTORY Textures DESTINATION bin)
+
+
+

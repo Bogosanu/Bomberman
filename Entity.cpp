@@ -45,9 +45,8 @@ void Entity:: configure_sprite(sf::Sprite sprite) {
 
 
  bool Entity::can_be_placed(int x1, int y1, std::array<std::array<int,19>,13> m) {
-    if(x1 >= 1 && x1 <= 17 && y1 >= 1 && y1 <= 11 && (m[x1][y1] == 0 || m[x1][y1] == 1))
-        return true;
-    else return false;
+    return (x1 >= 1 && x1 <= 17 && y1 >= 1 && y1 <= 11 && (m[x1][y1] == 0 || m[x1][y1] == 1));
+
 
 }
 
