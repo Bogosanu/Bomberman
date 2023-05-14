@@ -149,12 +149,12 @@ void Game::generatelevel(){
             }
 
             ///MOVEMENT
-            sf::Vector2f pos = player1.getPosition();
+            sf::Vector2f playerpos = player1.getPosition();
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
                 try {
-                    if (m[pos.y / 50 + 1][pos.x / 50] == 0) {
-                        pos.y += 50;
-                        player.setpos(pos.y / 50, pos.x / 50);
+                    if (m[playerpos.y / 50 + 1][playerpos.x / 50] == 0) {
+                        playerpos.y += 50;
+                        player.setpos(playerpos.y / 50, playerpos.x / 50);
                     }
                     else throw Unreachable();
                 }
@@ -164,9 +164,9 @@ void Game::generatelevel(){
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
                 try {
-                    if (m[pos.y / 50 - 1][pos.x / 50] == 0) {
-                        pos.y -= 50;
-                        player.setpos(pos.y / 50, pos.x / 50);
+                    if (m[playerpos.y / 50 - 1][playerpos.x / 50] == 0) {
+                        playerpos.y -= 50;
+                        player.setpos(playerpos.y / 50, playerpos.x / 50);
                     }
                     else throw Unreachable();
                 }
@@ -176,9 +176,9 @@ void Game::generatelevel(){
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
                 try {
-                    if (m[pos.y / 50][pos.x / 50 - 1] == 0) {
-                        pos.x -= 50;
-                        player.setpos(pos.y / 50, pos.x / 50);
+                    if (m[playerpos.y / 50][playerpos.x / 50 - 1] == 0) {
+                        playerpos.x -= 50;
+                        player.setpos(playerpos.y / 50, playerpos.x / 50);
                     }
                     else throw Unreachable();
                 }
@@ -188,9 +188,9 @@ void Game::generatelevel(){
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
                 try {
-                    if (m[pos.y / 50][pos.x / 50 + 1] == 0) {
-                        pos.x += 50;
-                        player.setpos(pos.y / 50, pos.x / 50);
+                    if (m[playerpos.y / 50][playerpos.x / 50 + 1] == 0) {
+                        playerpos.x += 50;
+                        player.setpos(playerpos.y / 50, playerpos.x / 50);
                     }
                     else throw Unreachable();
                 }
@@ -198,16 +198,16 @@ void Game::generatelevel(){
                     std::cout<<"Error: "<<e.what();
                 }
             }
-            player1.setPosition(pos);
+            player1.setPosition(playerpos);
             //////////
             /////////BOMB
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && timer == 0){
-                sf::Vector2f pos = player1.getPosition();
+                sf::Vector2f bombpos = player1.getPosition();
                 bomb.setTexture(bomb_text);
                 bomb.setScale(0.5f, 0.5f);
-                bomb.setPosition(pos);
+                bomb.setPosition(bombpos);
                 timer = 20;
-                m[pos.y / 50][pos.x / 50] = 3; // linia asta e aici ca playerul sa nu poata trece prin bomba (se reseteaza la 0 dupa detonare)
+                m[bombpos.y / 50][bombpos.x / 50] = 3; // linia asta e aici ca playerul sa nu poata trece prin bomba (se reseteaza la 0 dupa detonare)
 
             }
             if(timer > 5){
