@@ -298,6 +298,7 @@ void Game::generatelevel(){
                         window.draw(sp_board[i]); // stilizare game over
                     window.display();
                     std::cout << "GAME OVER\n";
+                    //testez githubul
                     //std::cout<<bombpos.x<<" "<<bombpos.y<<" "<<playerpos.x<<" "<<playerpos.y<<"\n";
                     sf::Time sleeptime = sf::seconds(2);
                     sf::sleep(sleeptime);
