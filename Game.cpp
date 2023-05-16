@@ -318,7 +318,10 @@ void Game::generatelevel(){
             for(i = 0; i < n; i++)
                 window.draw(sp_board[i]);
             window.display();
-
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                window.close();
+            }
 
 
         }
