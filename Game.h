@@ -21,6 +21,7 @@ class Game {
     Wall mbr;
     std::array<std::array<int,19>,13> m{{{0}}};
     Player player;
+
     std::vector<std::shared_ptr<Objective>> obj;
 
 public:

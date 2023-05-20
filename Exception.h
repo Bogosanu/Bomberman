@@ -23,9 +23,11 @@ public:
     Outofbounds() : Exception("Out of bounds position. \n") {}
 };
 
-class Unreachable : public Exception {
+class Gameover : public Exception {
 public:
-    Unreachable() : Exception("Can't go there.\n") {}
+    Gameover() : Exception("You died.\n") {}
 };
+
+
 
 #endif //OOP_EXCEPTION_H

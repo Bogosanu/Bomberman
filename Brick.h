@@ -2,7 +2,6 @@
 #ifndef OOP_BRICK_H
 #define OOP_BRICK_H
 
-
 class Brick {
 private:
     int hp;

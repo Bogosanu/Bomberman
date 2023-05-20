@@ -22,3 +22,5 @@ Surse sprite-uri:
       Explozie: Phongpon Woranitipurit https://www.spriters-resource.com/ds_dsi/bomberman/sheet/107788/
 
       Bomba: Shutterstock Pixel Bomb royalty-free images
+
+      Tepi: https://1juancarlos.itch.io/simple-2d-pixel-art-wooden-spikes
