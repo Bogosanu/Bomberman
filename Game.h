@@ -20,8 +20,8 @@
 class Game {
     Wall mbr;
     std::array<std::array<int,19>,13> m{{{0}}};
-    Entity *player_ghost; //pozitia playerului
     Player player;
+    Entity *player_ghost; //pozitia playerului
 
     std::vector<std::shared_ptr<Objective>> obj;
 
