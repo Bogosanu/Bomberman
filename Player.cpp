@@ -1,7 +1,6 @@
 
 #include "Player.h"
 #include "Exception.h"
-#include <iostream>
 
 Player::Player(){
     alive = true;

@@ -7,7 +7,7 @@
 
     Game::Game() = default;
 
-    Game::Game(const Game &other): mbr{other.mbr}, m{other.m}, player{other.player}{
+    Game::Game(const Game &other): mbr{other.mbr}, m{other.m}, player{other.player}, player_ghost{other.player_ghost}{
         for(unsigned long i=0; i<other.obj.size(); i++)
         {
             Objective * obj_cl = other.obj[i]->clone();
@@ -30,7 +30,9 @@ Game& Game::operator=(const Game& other) {
     return *this;
 }
 
-
+void Game::setPlayerGhost(Entity *playerGhost) {
+    player_ghost = playerGhost;
+}
 
 
 void Game::generatelevel(){
@@ -41,8 +43,8 @@ void Game::generatelevel(){
         objective.setTexture(objective_text);
         int i, x, y, hp, n, vsize = 0;
         fin >> x >> y;
-        if(player.can_be_placed(x,y,m)) {
-            player.setpos(x, y);
+        if(player_ghost->can_be_placed(x,y,m)) {
+            player_ghost->setpos(x, y);
             player.setAlive(true);
         }
         fin >> n;
@@ -105,7 +107,7 @@ void Game::generatelevel(){
         bomb_text.loadFromFile("Textures/bomb.png");
         player1.setTexture(player_text);
         player1.setScale(0.5f, 0.5f);
-        player1.setPosition(player.getY() * 50, player.getX() * 50);
+        player1.setPosition(player_ghost->getY() * 50, player_ghost->getX() * 50);
         player.configure_sprite(player1);
         player.setSprite(player1);
         window.setFramerateLimit(7);
@@ -153,7 +155,7 @@ void Game::generatelevel(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
                     if (m[movingpos.y / 50 + 1][movingpos.x / 50] == 0) {
                         movingpos.y += 50;
-                        player.setpos(movingpos.y / 50, movingpos.x / 50);
+                        player_ghost->setpos(movingpos.y / 50, movingpos.x / 50);
                     } else if (m[movingpos.y / 50 + 1][movingpos.x / 50] == 10) {
                         throw Gameover();
                     }
@@ -161,7 +163,7 @@ void Game::generatelevel(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
                     if (m[movingpos.y / 50 - 1][movingpos.x / 50] == 0) {
                         movingpos.y -= 50;
-                        player.setpos(movingpos.y / 50, movingpos.x / 50);
+                        player_ghost->setpos(movingpos.y / 50, movingpos.x / 50);
                     } else if (m[movingpos.y / 50 - 1][movingpos.x / 50] == 10) {
                         throw Gameover();
                     }
@@ -169,7 +171,7 @@ void Game::generatelevel(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
                     if (m[movingpos.y / 50][movingpos.x / 50 - 1] == 0) {
                         movingpos.x -= 50;
-                        player.setpos(movingpos.y / 50, movingpos.x / 50);
+                        player_ghost->setpos(movingpos.y / 50, movingpos.x / 50);
                     } else if (m[movingpos.y / 50][movingpos.x / 50 - 1] == 10) {
                         throw Gameover();
                     }
@@ -177,7 +179,7 @@ void Game::generatelevel(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
                     if (m[movingpos.y / 50][movingpos.x / 50 + 1] == 0) {
                         movingpos.x += 50;
-                        player.setpos(movingpos.y / 50, movingpos.x / 50);
+                        player_ghost->setpos(movingpos.y / 50, movingpos.x / 50);
                     } else if (m[movingpos.y / 50][movingpos.x / 50 + 1] == 10) {
                         throw Gameover();
                     }
@@ -191,8 +193,7 @@ void Game::generatelevel(){
                     bomb.setScale(0.5f, 0.5f);
                     bomb.setPosition(bombpos);
                     timer = 20;
-                    m[bombpos.y / 50][bombpos.x /
-                                      50] = 3; // linia asta e aici ca playerul sa nu poata trece prin bomba (se reseteaza la 0 dupa detonare)
+                    m[bombpos.y / 50][bombpos.x /50] = 3; // linia asta e aici ca playerul sa nu poata trece prin bomba (se reseteaza la 0 dupa detonare)
 
                 }
                 if (timer > 5) {
@@ -318,3 +319,5 @@ void Game::generatelevel(){
 
 
     }
+
+

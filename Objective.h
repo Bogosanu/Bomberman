@@ -25,6 +25,8 @@ public:
 
     void setAcquired(bool acquired);
 
+    void setpos(int, int) override;
+
     //bool isAcquired() const;
 
 };

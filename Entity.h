@@ -4,6 +4,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <array>
+#include <iostream>
 
 class Entity {
 private:
@@ -34,6 +35,8 @@ public:
     void configure_sprite(sf::Sprite);
 
     virtual bool can_be_placed(int,int, std::array<std::array<int,19>,13>) = 0;
+
+    virtual void setpos(int, int) = 0;
 
     virtual ~Entity();
 };

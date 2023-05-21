@@ -19,7 +19,7 @@ public:
 
     bool can_be_placed(int, int, std::array<std::array<int,19>,13>) override;
 
-    void setpos(int, int);
+    void setpos(int, int) override;
 
     ~Player();
 

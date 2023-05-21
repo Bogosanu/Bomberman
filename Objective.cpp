@@ -1,5 +1,5 @@
 
-
+#include "Exception.h"
 #include "Objective.h"
 
 
@@ -36,6 +36,15 @@ bool Objective::can_be_placed(int x1, int y1, std::array<std::array<int,19>,13> 
     if(m[x1][y1] == 1) // obiectivele stau pe caramizi destructibile si trb sa fie distruse pt a castiga
         return true;
     return false;
+}
+void Objective::setpos(int x1, int y1){ //exceptia e pentru inceput, cand sunt introduse coordonatele obiectivelor din level.txt
+    try {
+        if (y1 >= 1 && y1 <= 17 && x1 >= 1 && x1 <= 11) { this->setX(x1); this->setY(y1); }
+        else throw Outofbounds();
+    }
+    catch (const Exception& e) {
+        std::cout<<"Error: "<<e.what();
+    }
 }
 
 Objective::~Objective() {}
