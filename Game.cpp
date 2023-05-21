@@ -7,7 +7,7 @@
 
     Game::Game() = default;
 
-    Game::Game(const Game &other): mbr{other.mbr}, m{other.m}, player{other.player}, player_ghost{other.player_ghost}{
+    Game::Game(const Game &other): mbr{other.mbr}, m{other.m}, player_ghost{other.player_ghost}{
         for(unsigned long i=0; i<other.obj.size(); i++)
         {
             Objective * obj_cl = other.obj[i]->clone();
@@ -25,7 +25,6 @@
 Game& Game::operator=(const Game& other) {
     mbr = other.mbr;
     m = other.m;
-    player = other.player;
     player_ghost = other.player_ghost;
     obj = other.obj;
     return *this;
@@ -46,7 +45,6 @@ void Game::generatelevel(){
         fin >> x >> y;
         if(player_ghost->can_be_placed(x,y,m)) {
             player_ghost->setpos(x, y);
-            player.setAlive(true);
         }
         fin >> n;
         for(i = 0; i < n; ++i){
@@ -72,6 +70,7 @@ void Game::generatelevel(){
     void Game::drawlevel() {
         int i, j, br, timer = 0;
         int okc = 0, okt = 0, okb = 0, okl = 0, okr = 0;
+        Player* playerPtr = dynamic_cast<Player*>(player_ghost);
         sf::RenderWindow window(sf::VideoMode(950, 650), "BOMBERMAN", sf::Style::Close | sf::Style::Titlebar);
         std::vector<sf::Sprite> sp_board;
         sf::Sprite player1;
@@ -109,10 +108,10 @@ void Game::generatelevel(){
         player1.setTexture(player_text);
         player1.setScale(0.5f, 0.5f);
         player1.setPosition(player_ghost->getY() * 50, player_ghost->getX() * 50);
-        player.configure_sprite(player1);
-        player.setSprite(player1);
+        playerPtr->configure_sprite(player1);
+        playerPtr->setSprite(player1);
         window.setFramerateLimit(7);
-        while (window.isOpen() && player.isAlive()) {
+        while (window.isOpen() && playerPtr->isAlive()) {
             sf::Event evnt;
             while (window.pollEvent(evnt)) {
                 switch (evnt.type) {
@@ -156,7 +155,7 @@ void Game::generatelevel(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
                     if (m[movingpos.y / 50 + 1][movingpos.x / 50] == 0) {
                         movingpos.y += 50;
-                        player_ghost->setpos(movingpos.y / 50, movingpos.x / 50);
+                        playerPtr->setpos(movingpos.y / 50, movingpos.x / 50);
                     } else if (m[movingpos.y / 50 + 1][movingpos.x / 50] == 10) {
                         throw Gameover();
                     }
@@ -164,7 +163,7 @@ void Game::generatelevel(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
                     if (m[movingpos.y / 50 - 1][movingpos.x / 50] == 0) {
                         movingpos.y -= 50;
-                        player_ghost->setpos(movingpos.y / 50, movingpos.x / 50);
+                        playerPtr->setpos(movingpos.y / 50, movingpos.x / 50);
                     } else if (m[movingpos.y / 50 - 1][movingpos.x / 50] == 10) {
                         throw Gameover();
                     }
@@ -172,7 +171,7 @@ void Game::generatelevel(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
                     if (m[movingpos.y / 50][movingpos.x / 50 - 1] == 0) {
                         movingpos.x -= 50;
-                        player_ghost->setpos(movingpos.y / 50, movingpos.x / 50);
+                        playerPtr->setpos(movingpos.y / 50, movingpos.x / 50);
                     } else if (m[movingpos.y / 50][movingpos.x / 50 - 1] == 10) {
                         throw Gameover();
                     }
@@ -180,7 +179,7 @@ void Game::generatelevel(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
                     if (m[movingpos.y / 50][movingpos.x / 50 + 1] == 0) {
                         movingpos.x += 50;
-                        player_ghost->setpos(movingpos.y / 50, movingpos.x / 50);
+                        playerPtr->setpos(movingpos.y / 50, movingpos.x / 50);
                     } else if (m[movingpos.y / 50][movingpos.x / 50 + 1] == 10) {
                         throw Gameover();
                     }
@@ -290,7 +289,7 @@ void Game::generatelevel(){
 
             catch (Gameover &e) {
                 std::cout << e.what();
-                player.setAlive(false);
+                playerPtr->setAlive(false);
                 int n = sp_board.size();
                 for (i = 0; i < n; i++)
                     window.draw(sp_board[i]); // stilizare game over

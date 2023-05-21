@@ -30,8 +30,6 @@ public:
 
     void setY(int y);
 
-    //void setpos(int, int);
-
     void configure_sprite(sf::Sprite);
 
     virtual bool can_be_placed(int,int, std::array<std::array<int,19>,13>) = 0;
