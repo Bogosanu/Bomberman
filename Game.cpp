@@ -26,6 +26,7 @@ Game& Game::operator=(const Game& other) {
     mbr = other.mbr;
     m = other.m;
     player = other.player;
+    player_ghost = other.player_ghost;
     obj = other.obj;
     return *this;
 }
