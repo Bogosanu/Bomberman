@@ -43,24 +43,28 @@ void Game::generatelevel(){
         objective.setTexture(objective_text);
         int i, x, y, hp, n, vsize = 0;
         fin >> x >> y;
-        if(player_ghost->can_be_placed(x,y,m)) {
-            player_ghost->setpos(x, y);
+        try {
+            if (player_ghost->can_be_placed(x, y, m)) {
+                player_ghost->setpos(x, y);
+            }
+            fin >> n;
+            for (i = 0; i < n; ++i) {
+                fin >> x >> y;
+                this->getMbr().getWallmatrix()[x].getRow()[y].setdetails(x, y, 2);
+                m[x][y] = this->getMbr().getWallmatrix()[x].getRow()[y].gethp();
+                obj.emplace_back(std::make_shared<Objective>());
+                obj[vsize]->setpos(x, y);
+                obj[vsize]->setAcquired(false);    //throw in setpos si la player si la objectives
+                obj[vsize]->setSprite(objective);
+                vsize++;
+            }
+            while (fin >> x >> y >> hp) {
+                this->getMbr().getWallmatrix()[x].getRow()[y].setdetails(x, y, hp);
+                m[x][y] = this->getMbr().getWallmatrix()[x].getRow()[y].gethp();
+            }
         }
-        fin >> n;
-        for(i = 0; i < n; ++i){
-            fin >> x >> y;
-            this->getMbr().getWallmatrix()[x].getRow()[y].setdetails(x,y,2);
-            m[x][y] = this->getMbr().getWallmatrix()[x].getRow()[y].gethp();
-            obj.emplace_back(std::make_shared<Objective>());
-            obj[vsize]->setX(x);
-            obj[vsize]->setY(y);
-            obj[vsize]->setAcquired(false);
-            obj[vsize]->setSprite(objective);
-            vsize++;
-        }
-        while(fin >> x >> y >> hp){
-            this->getMbr().getWallmatrix()[x].getRow()[y].setdetails(x,y,hp);
-            m[x][y] = this->getMbr().getWallmatrix()[x].getRow()[y].gethp();
+        catch (const Outofbounds& e) {
+            std::cout<<"Error: "<<e.what();
         }
 
 

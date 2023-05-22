@@ -39,14 +39,9 @@ bool Player::can_be_placed(int x1, int y1, std::array<std::array<int,19>,13> m) 
 }
 
 void Player::setpos(int x1, int y1){ //exceptia e pentru inceput, cand sunt introduse coordonatele jucatorului din level.txt
-    try {
         if (y1 >= 1 && y1 <= 17 && x1 >= 1 && x1 <= 11) { this->setX(x1); this->setY(y1); }
         else throw Outofbounds();
     }
-    catch (const Exception& e) {
-        std::cout<<"Error: "<<e.what();
-    }
-}
 
 
 Player::~Player() {}
