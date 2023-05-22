@@ -41,14 +41,15 @@ void Game::generatelevel(){
         objective_text.loadFromFile("Textures/objective.png");
         sf::Sprite objective;
         objective.setTexture(objective_text);
-        int i, x, y, hp, n, vsize = 0;
+        int x, y;
         fin >> x >> y;
         try {
+            int hp, n, vsize = 0;
             if (player_ghost->can_be_placed(x, y, m)) {
                 player_ghost->setpos(x, y);
             }
             fin >> n;
-            for (i = 0; i < n; ++i) {
+            for (int i = 0; i < n; ++i) {
                 fin >> x >> y;
                 this->getMbr().getWallmatrix()[x].getRow()[y].setdetails(x, y, 2);
                 m[x][y] = this->getMbr().getWallmatrix()[x].getRow()[y].gethp();
