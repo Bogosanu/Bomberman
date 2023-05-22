@@ -41,10 +41,9 @@ void Game::generatelevel(){
         objective_text.loadFromFile("Textures/objective.png");
         sf::Sprite objective;
         objective.setTexture(objective_text);
-        int x, y;
-        fin >> x >> y;
         try {
-            int hp, n, vsize = 0;
+            int x, y, hp, n, vsize = 0;
+            fin >> x >> y;
             if (player_ghost->can_be_placed(x, y, m)) {
                 player_ghost->setpos(x, y);
             }
