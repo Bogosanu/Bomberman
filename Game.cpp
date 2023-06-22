@@ -86,7 +86,7 @@ void Game::generatelevel(){
         sf::Sprite explosion_left;
         sf::Sprite explosion_right;
         sf::Texture spikes_text;
-        spikes_text.loadFromFile("textures/spikes2.png");
+        spikes_text.loadFromFile("Textures/spikes2.png");
         sf::Texture explosion_c;
         explosion_c.loadFromFile("Textures/explosion_center.png");
         sf::Texture explosion_t;
